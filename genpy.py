@@ -63,6 +63,7 @@ print("[+]Generating the Script...")
 print(bcolors.ENDC)
 
 f = open("exploit.py","w")
+f.write("#!/usr/bin/python3\n\n")
 
 
 init_state = f"""
@@ -99,7 +100,6 @@ except:
     sys.exit()
 
 
-f.write("#!/usr/bin/python3\n\n")
 f.write("from pwn import * \n\n\n")
 f.write("p = process(\""+"./"+bin_name+"\")\n")
 f.write(f"#p = remote(\"{remote_host}\",{remote_port})\n")
