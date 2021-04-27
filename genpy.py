@@ -64,7 +64,7 @@ print(bcolors.ENDC)
 
 f = open("exploit.py","w")
 f.write("#!/usr/bin/python3\n\n")
-
+f.write("from pwn import *\n")
 
 init_state = f"""
 #Info:
@@ -80,7 +80,6 @@ init_state = f"""
 try:
 
     sec_info = subprocess.getoutput(f"checksec {bin_name}")
-
     sec_info = sec_info.split("\n")
     note = ""
 
@@ -92,6 +91,18 @@ try:
 
     f.write(f"{init_state}\n")
 
+    file_cmd = subprocess.getoutput(f"file {bin_name}")
+    file_cmd = file_cmd.split(",")
+
+
+
+    for i in file_cmd:
+
+        f.write("#"+i+"\n")
+
+    f.write("\n\n")
+
+
 except:
     print(bcolors.FAIL)
     print("[!]Maybe Something wrong...")
@@ -99,8 +110,8 @@ except:
     print(bcolors.ENDC)
     sys.exit()
 
-
-f.write("from pwn import * \n\n\n")
+#f.write("#!/usr/bin/python3\n\n")
+#f.write("from pwn import * \n\n\n")
 f.write("p = process(\""+"./"+bin_name+"\")\n")
 f.write(f"#p = remote(\"{remote_host}\",{remote_port})\n")
 f.write("p.clean()\n\n")
@@ -113,7 +124,44 @@ phase = input("press any key")
 print(bcolors.ENDC)
 
 print(bcolors.YELLOW)
-print("-------------------------------------------------")
-print("-----------------format preview------------------")
-os.system("cat exploit.py")
+print("+--------------+")
+print("|format preview|")
+print("+--------------+")
+
+f = open("exploit.py","r")
+
+preview_array  = []
+preview_array2 = []
+
+for i in f:
+
+    preview_array.append(i)
+
+for i in preview_array:
+
+    preview_array2.append(i.replace("\n",""))
+
+del preview_array
+
+counter = 0
+
+for i in preview_array2:
+
+    if counter <= len(i):
+        counter = len(i)
+
+max_length = "+"+"-"*counter+"+"
+
+print(max_length)
+
+for i in preview_array2:
+    padding = counter - len(i)
+    print("|"+i+" "*padding+"|")
+
+print(max_length)
+
+
+
+
+
 print(bcolors.ENDC)
