@@ -1,5 +1,5 @@
 # genpy
-generate init part of python_script for pwn
+automatically generate init part of python_script for pwn
 
 install:
 
