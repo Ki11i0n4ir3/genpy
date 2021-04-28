@@ -9,7 +9,7 @@ if os.getuid() != 0:
 
 step1 = "chmod +x genpy.py"
 
-step2 = "mv genpy.py /usr/bin/genpy"
+step2 = "mv genpy.py /usr/local/bin/genpy"
 
 os.system(step1)
 
